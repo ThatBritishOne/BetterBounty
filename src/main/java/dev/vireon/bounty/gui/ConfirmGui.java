@@ -44,6 +44,16 @@ public class ConfirmGui {
                             Placeholder.unparsed("amount", ChatUtils.FORMATTER.format(amount)),
                             Placeholder.unparsed("player", target.getName() == null ? "---" : target.getName())
                     ));
+
+                    // Run configurable command on bounty placed
+                    String commandTemplate = plugin.getConfig().getString("settings.on-bounty-placed-command");
+                    if (commandTemplate != null && !commandTemplate.isEmpty()) {
+                    String command = commandTemplate
+                        .replace("{placer}", player.getName())
+                        .replace("{target}", target.getName() == null ? "---" : target.getName())
+                        .replace("{amount}", ChatUtils.FORMATTER.format(amount));
+                        plugin.getServer().dispatchCommand(plugin.getServer().getConsoleSender(), command);
+                    }
                     plugin.getScheduler().runAtEntity(player, _task -> player.playSound(Sound.sound(Key.key(plugin.getConfig().getString("settings.sounds.success")), Sound.Source.MASTER, 1.0f, 1.0f)));
                 }
                 case MAXIMUM_EXCEEDED -> {

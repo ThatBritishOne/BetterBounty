@@ -15,6 +15,12 @@ settings:
   commands:
     - "bounty"
     - "bounties"
+  
+  # Command to run when a bounty is placed. Placeholders: {placer}, {target}, {amount}
+  on-bounty-placed-command: "broadcast {placer} has placed a bounty of ${amount} on {target}!"
+
+  # Command to run when a bounty is claimed (player killed). Placeholders: {killer}, {personKilled}, {amount}
+  on-bounty-claimed-command: "broadcast {killer} has claimed the bounty of ${amount} by killing {personKilled}!"
 
   sounds:
     success: "minecraft:entity.player.levelup"
